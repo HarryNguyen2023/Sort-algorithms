@@ -3,3 +3,7 @@ SelectionSort
 InsertionSort
 ShellSort
 CountingSort
+RadixSort
+BucketSort
+MergeSort
+QuickSort

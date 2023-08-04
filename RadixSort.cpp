@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 
+#define MAX 10
+
 // Function to print out the array
 void printArr(std::vector<int>& arr)
 {
@@ -24,38 +26,48 @@ int findMax(std::vector<int>& arr)
 }
 
 // Function to perform the shell sort 
-std::vector<int> countingSort(std::vector<int>& arr)
+void countingSort(std::vector<int>& arr, int place)
 {
-    int max = findMax(arr);
-
     // Initiate some array
-    std::vector<int> count(max + 1, 0);
+    std::vector<int> count(MAX, 0);
     std::vector<int> out(arr.size(), 0);
 
     // Count the occurence of elements
     for(int i = 0; i < arr.size(); ++i)
-        count[arr[i]]++;
+        count[(arr[i] / place) % 10]++;
 
     // Sum the total occurence of previous elements
-    for(int i = 1; i <= max; ++i)
+    for(int i = 1; i < MAX; ++i)
         count[i] += count[i - 1];
 
     // Arrange the elements into the new array
     for(int i = arr.size() - 1; i >= 0; --i)
     {
-        out[count[arr[i]] - 1] = arr[i];
-        count[arr[i]]--;
+        out[count[(arr[i] / place) % 10] - 1] = arr[i];
+        count[(arr[i] / place) % 10]--;
     }
-    return out;
+    
+    // Copy the output
+    for(int i = 0; i < arr.size(); ++i)
+        arr[i] = out[i];
+}
+
+// Function tp perform the radix sort algorithm
+void radixSort(std::vector<int>& arr)
+{
+    int max = findMax(arr);
+
+    for(int i = 1; max / i > 0; i *= 10)
+        countingSort(arr, i);
 }
 
 int main()
 {
-    std::vector<int> arr = {3, 5, 2, 1, 5, 9, 26, 15, 33, 98, 14, 10, 6};
+    std::vector<int> arr = {121, 432, 564, 23, 1, 45, 788};
 
-    std::vector<int> sort = countingSort(arr);
+    radixSort(arr);
 
-    printArr(sort);
+    printArr(arr);
 
     return 0;
 }

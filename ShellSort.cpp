@@ -10,14 +10,6 @@ void printArr(std::vector<int>& arr)
     std::cout<<std::endl;
 }
 
-// Function to swap 2 number
-void swap(int& a, int& b)
-{
-    int temp = a;
-    a = b;
-    b = temp;
-}
-
 // Function to perform the shell sort 
 void shellSort(std::vector<int>& arr)
 {
