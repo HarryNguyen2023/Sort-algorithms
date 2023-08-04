@@ -4,7 +4,7 @@
 // Function to print out the array
 void printArr(std::vector<int>& arr)
 {
-    std::cout<<"The array after bubble sort: ";
+    std::cout<<"The array after shell sort: ";
     for(auto& i : arr)
         std::cout<<i<<" ";
     std::cout<<std::endl;
@@ -18,23 +18,19 @@ void swap(int& a, int& b)
     b = temp;
 }
 
-// Function to perform the bubble sort
-void bubbleSort(std::vector<int>& arr)
+// Function to perform the shell sort 
+void shellSort(std::vector<int>& arr)
 {
-    for(int i = 0; i < arr.size() - 1; ++i)
+    for(int step = arr.size() / 2; step > 0; step /= 2)
     {
-        bool swapped = false;
-
-        for(int j = 0; j < arr.size() - i - 1   ; ++j)
+        for(int i = step; i < arr.size(); i++)
         {
-            if(arr[j + 1] < arr[j])
-            {
-                swap(arr[j + 1], arr[j]);
-                swapped = true;
-            }
+            int j, temp = arr[i];
+            // Swap all the smaller 
+            for(j = i; j >= step && arr[j - step] > temp; j -= step)
+                arr[j] = arr[j - step];
+            arr[j] = temp;
         }
-        if(! swapped)
-            break;
     }
 }
 
@@ -42,7 +38,7 @@ int main()
 {
     std::vector<int> arr = {3, 5, 2, -1, -5, 9, 26, 15, 33, 98, 14, 10, -6};
 
-    bubbleSort(arr);
+    shellSort(arr);
 
     printArr(arr);
 

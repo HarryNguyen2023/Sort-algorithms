@@ -4,7 +4,7 @@
 // Function to print out the array
 void printArr(std::vector<int>& arr)
 {
-    std::cout<<"The array after bubblr sort: ";
+    std::cout<<"The array after selection sort: ";
     for(auto& i : arr)
         std::cout<<i<<" ";
     std::cout<<std::endl;
